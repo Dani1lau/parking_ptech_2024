@@ -1,5 +1,11 @@
 package org.ptech081.parking;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.ptech081.parking.entities.*;
 
 public class Main {
@@ -23,11 +29,42 @@ public class Main {
 
         // recorrer los del cliente
 
-        for (Carro c : cliente1.misCarros) {
-            System.out.println(c.placa + "" + c.tipoVehiculo);
-            System.out.println("-------------");
+        // Crear dos cupos
+        Cupo cupo1 = new Cupo('A');
+        Cupo cupo2 = new Cupo('B');
 
+        // Crear 2 registros E/S
+        LocalDate fechaInicio = LocalDate.now();
+        LocalTime horaInicio = LocalTime.now();
+        LocalDate fechaFin = LocalDate.of(2024, Month.MARCH, 24);
+        LocalTime horaFin = LocalTime.of(15, 30, 0);
+        List<Registro> misRegistros = new ArrayList<Registro>();
+
+        // crear registro
+
+        Registro registro1 = new Registro(fechaInicio, horaInicio, fechaFin, horaFin, 5000L, cupo1,cliente1.misCarros.get(0), cliente1);
+
+        Registro registro2 = new Registro(fechaInicio, horaInicio, fechaFin, horaFin, 6000L, cupo2, cliente1.misCarros.get(0), cliente1);
+
+        
+
+        // añadir el registro a la lista
+
+        misRegistros.add(registro1);
+        misRegistros.add(registro2);
+        System.out.println("Registros de E/S parking");
+        for (Registro r : misRegistros) {
+            System.out.println("Cliente " +
+            r.cliente.nombre + " " + 
+            r.cliente.apellidos + "|" +
+            r.carro.placa + " " +
+            r.carro.tipoVehiculo + "|" + 
+            r.valor + "|" +
+            r.fechaInicio + " " +
+            r.horaInicio + "|" 
+            );
         }
 
     }
+
 }
